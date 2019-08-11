@@ -1,5 +1,6 @@
 package com.example.demo.survey;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -18,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-public class UserEntity {
+public class UserEntity implements Serializable{
 
 	
 	@Id

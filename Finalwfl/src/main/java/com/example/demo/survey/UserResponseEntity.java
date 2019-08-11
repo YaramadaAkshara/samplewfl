@@ -1,20 +1,28 @@
 package com.example.demo.survey;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
+
+import org.springframework.web.servlet.ModelAndView;
 
 
 
 
 @Entity
-public class UserResponseEntity {
+public class UserResponseEntity  implements Serializable {
 
 	
 	@Id
@@ -24,9 +32,14 @@ public class UserResponseEntity {
 	@ManyToMany(mappedBy="userResponsesSet")
 	Set<QuestionEntity> questionEntitySet;
 	
+	@ElementCollection
+	@CollectionTable(name="QuestionEntity",joinColumns=@JoinColumn(name="userResponseid"))
+	@MapKeyColumn(name="qid")
+	@Column(name="values")
 	Map<String,Integer> selectedOptions;
 	
 	@OneToOne(mappedBy ="ur")
+	@JoinColumn(name = "ue_id", referencedColumnName = "uid")
 	UserEntity user;
 	
 
